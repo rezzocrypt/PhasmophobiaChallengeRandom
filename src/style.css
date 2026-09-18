@@ -1,12 +1,27 @@
 :root {
+  color-scheme: dark;
   --color-bg: #10141b;
   --color-surface: #1a2130;
   --color-input: #121826;
+  --color-input-hover: #1a2232;
   --color-border: #2c3a52;
   --color-text: #dde4f0;
   --color-heading: #ffffff;
   --color-muted: #7d8aa5;
   --color-accent: #4f8cff;
+}
+
+[data-theme='light'] {
+  color-scheme: light;
+  --color-bg: #eef2f7;
+  --color-surface: #ffffff;
+  --color-input: #f4f6fa;
+  --color-input-hover: #e9edf3;
+  --color-border: #c9d3e0;
+  --color-text: #1c2530;
+  --color-heading: #0f1620;
+  --color-muted: #5c6b80;
+  --color-accent: #2f6fdd;
 }
 
 * {
@@ -42,7 +57,7 @@ button {
 
 .btn:hover {
   border-color: var(--color-accent);
-  background: #1a2232;
+  background: var(--color-input-hover);
 }
 
 .btn-primary {

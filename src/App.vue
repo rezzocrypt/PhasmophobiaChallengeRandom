@@ -3,10 +3,18 @@ import { ref } from 'vue'
 import ListSelect from './components/ListSelect.vue'
 import ListEditor from './components/ListEditor.vue'
 import { usePhasmaLists } from './composables/usePhasmaLists'
+import { useTheme } from './composables/useTheme'
 import { version } from '../package.json'
 import ghostIcon from './assets/ghost.png'
 
 const { state, results, saveList, generate, importFile, exportFile } = usePhasmaLists()
+const { mode, setMode } = useTheme()
+
+const themeOptions = [
+  { value: 'system', label: 'Система' },
+  { value: 'light', label: 'Светлая' },
+  { value: 'dark', label: 'Тёмная' },
+]
 
 const editorKey = ref(null)
 const editorTitles = {
@@ -33,6 +41,17 @@ const generateNew = () => generate(5)
     <header class="app-header">
       <img :src="ghostIcon" class="app-ghost" alt="ФазмоГен" />
       <h1 class="app-title">ФазмоГен</h1>
+      <div class="theme-switch" role="group" aria-label="Тема оформления">
+        <button
+          v-for="opt in themeOptions"
+          :key="opt.value"
+          type="button"
+          :class="['theme-btn', { active: mode === opt.value }]"
+          @click="setMode(opt.value)"
+        >
+          {{ opt.label }}
+        </button>
+      </div>
     </header>
 
     <section class="panel">
@@ -109,6 +128,35 @@ const generateNew = () => generate(5)
   margin: 0;
   font-size: 1.8rem;
   color: var(--color-heading);
+}
+
+.theme-switch {
+  margin-left: auto;
+  display: inline-flex;
+  padding: 3px;
+  background: var(--color-input);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+}
+
+.theme-btn {
+  padding: 6px 12px;
+  font-size: 0.85rem;
+  color: var(--color-muted);
+  background: transparent;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+.theme-btn:hover {
+  color: var(--color-text);
+}
+
+.theme-btn.active {
+  color: var(--color-text);
+  background: var(--color-surface);
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.25);
 }
 
 .panel {
